@@ -95,4 +95,4 @@ jobs:
       -
         name: Push Image
         id:   pushdockerimagenolabel
-        run:  docker push ${{ secrets.DOCKER_HUB_USERNAME }}/python-dev
+        run:  docker push ${{ secrets.DOCKER_HUB_USERNAME }}/python-dev:latest
