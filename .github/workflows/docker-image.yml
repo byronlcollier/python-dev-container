@@ -1,0 +1,48 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Repo Checkout
+        id:   repocheckout
+        uses: actions/checkout@v2
+      - 
+        name: Setup Docker Build
+        id:   dockersetup
+        uses: docker/setup-buildx-action@v1
+      - 
+        name: Install GitVersion
+        id:   installgitversion
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: '5.x'
+      -
+        name: Run GitVersion
+        id:   rungitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+        with:
+          useConfigFile: true
+        
+      - 
+        name: DockerHub Login
+        id:   dockerlogin
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      -
+        name: Build Image
+        id:   buildimage
+        run:  docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/python-dev:${{ steps.rungitversion.outputs.fullSemVer }}
