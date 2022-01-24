@@ -48,3 +48,13 @@ jobs:
         name: Build Image
         id:   buildimage
         run:  docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/python-dev:${{ steps.rungitversion.outputs.fullSemVer }} .
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    steps:
+      -
+        name: Push Image
+        id:   pushdockerimage
+        run:  docker push ${{ secrets.DOCKER_HUB_USERNAME }}/python-dev:${{ steps.rungitversion.outputs.fullSemVer }}
