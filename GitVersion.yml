@@ -3,7 +3,7 @@ branches:
   main:
     increment: Minor
     tag: ''
-    regex: master
+    regex: main
     is-release-branch: true
     is-mainline: true
   develop:
