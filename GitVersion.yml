@@ -1,0 +1,20 @@
+mode: Mainline
+branches:
+  main:
+    increment: Minor
+    tag: ''
+    regex: master
+    is-release-branch: true
+    is-mainline: true
+  develop:
+    increment: Patch
+    tag: 'a'
+    regex: ^features?[/-]
+    source-branches:
+    - main
+  hotfix:
+    increment: Patch
+    tag: 'a'
+    regex: ^bugfix(es)?[/-]
+    source-branches:
+    - main
