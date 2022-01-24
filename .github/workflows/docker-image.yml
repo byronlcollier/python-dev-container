@@ -47,4 +47,4 @@ jobs:
       -
         name: Build Image
         id:   buildimage
-        run:  docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/python-dev:${{ steps.rungitversion.outputs.fullSemVer }}
+        run:  docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/python-dev:${{ steps.rungitversion.outputs.fullSemVer }} .
