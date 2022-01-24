@@ -92,7 +92,3 @@ jobs:
         name: Push Image
         id:   pushdockerimage
         run:  docker push ${{ secrets.DOCKER_HUB_USERNAME }}/python-dev:${{ steps.rungitversion.outputs.fullSemVer }}
-      -
-        name: Push Image
-        id:   pushdockerimagenolabel
-        run:  docker push ${{ secrets.DOCKER_HUB_USERNAME }}/python-dev:latest
